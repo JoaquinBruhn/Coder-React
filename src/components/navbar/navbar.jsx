@@ -1,4 +1,4 @@
-import Cart from "./cart/cart"
+import CartWidget from "./cart/cartWidget"
 import "./navbar.css"
 
 const Navbar = ()=>{
@@ -10,7 +10,7 @@ const Navbar = ()=>{
                 <p>pantalones</p>
                 <p>accesorios</p>
                 <p>abrigos</p>
-                <Cart/>
+                <CartWidget/>
             </div>
         </div>
     )
