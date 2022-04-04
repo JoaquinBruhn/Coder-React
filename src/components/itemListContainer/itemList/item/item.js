@@ -18,6 +18,7 @@ const Item = ({product})=>{
         <div className="item-card">
             <h4>{product.productName}</h4>
             <div>
+                <img src={product.pictureURL}/>
                 <p>price:{product.price}</p>
                 <p>remaining in stock:{product.stock}</p>
                 <button>more info</button>

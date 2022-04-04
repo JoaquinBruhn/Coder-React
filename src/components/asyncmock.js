@@ -2,6 +2,7 @@ const data = [
     {
     productName:"black t-shirt",
     productID:"top123",
+    pictureURL:"https://via.placeholder.com/350x150",
     category:"top",
     price:800,
     stock:7,
@@ -10,6 +11,7 @@ const data = [
     {
     productName:"red sweater",
     productID:"top456",
+    pictureURL:"https://via.placeholder.com/350x150",
     category:"top",
     price:1100,
     stock:12,
@@ -18,6 +20,7 @@ const data = [
     {
     productName:"long sleeve blue t-shirt",
     productID:"top789",
+    pictureURL:"https://via.placeholder.com/350x150",
     category:"top",
     price:900,
     stock:11,
@@ -26,6 +29,7 @@ const data = [
     {
     productName:"black shorts",
     productID:"pant741",
+    pictureURL:"https://via.placeholder.com/350x150",
     category:"pants",
     price:600,
     stock:14,
@@ -34,6 +38,7 @@ const data = [
     {
     productName:"blue jeans",
     productID:"pant852",
+    pictureURL:"https://via.placeholder.com/350x150",
     category:"pants",
     price:1200,
     stock:9,
@@ -42,6 +47,7 @@ const data = [
     {
     productName:"white socks",
     productID:"shoe159",
+    pictureURL:"https://via.placeholder.com/350x150",
     category:"shoes",
     price:240,
     stock:13,
@@ -50,6 +56,7 @@ const data = [
     {
     productName:"black sneakers",
     productID:"shoe753",
+    pictureURL:"https://via.placeholder.com/350x150",
     category:"shoes",
     price:1150,
     stock:7,
