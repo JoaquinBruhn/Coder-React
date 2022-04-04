@@ -57,4 +57,17 @@ const data = [
     },
 ]
 
+export const bringList = (status)=>{
+
+    return new Promise((resolve, reject)=>{
+         setTimeout(()=>{
+             if(status){
+                 resolve(data)
+             }else{
+                 reject("server is down")
+             }
+         },3000)
+     })
+ }
+
 export default data
