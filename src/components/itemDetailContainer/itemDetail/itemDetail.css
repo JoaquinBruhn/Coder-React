@@ -1,26 +1,26 @@
-.item-card{
-    width: 400px;
-    height: 350px;
-    background-color: rgb(204, 240, 241);
+.item-detail{
+    width: 700px;
+    height: 500px;
+    background-color: rgb(247, 255, 136);
     border: solid 1px black;
 }
 
-.item-card > *{
+.item-detail > *{
     text-transform:capitalize;
 }
 
-.item-card > div{
+.item-detail > div:nth-child(2){
     display:flex;
     flex-direction: column;
     align-items: center;
 }
 
-.item-card > div > img{
+.item-detail > div > img{
     margin-bottom: 10px;
     
 }
 
-.item-card > div > p{
+.detail-info{
     margin-top: 0px;
     margin-bottom: 10px;
     margin-left: 10px;
@@ -28,9 +28,8 @@
     font-weight: 500;
 }
 
-.item-card > div > button{
+.detail-description{
+    text-transform: initial;
+    align-self: center;
     font-size: 18px;
-    margin: 10px;
-    padding: 5px;
-    font-weight: 700;
 }

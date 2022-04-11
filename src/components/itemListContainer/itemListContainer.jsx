@@ -20,7 +20,6 @@ const ItemListContainer = ({mensaje})=>{
         <>
             <h1>Este es el mensaje: "{mensaje}"</h1>
             {products===undefined?<h1>Loading ...</h1>:<ItemList productList={products} />}
-            
         </>
     )
 }
