@@ -1,26 +1,32 @@
-import {bringList} from "../asyncmock"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import ItemList from "./itemList/itemList"
+import {bringCategory, bringList} from "../asyncmock"
 
 import "./itemListContainer.css"
-import ItemList from "./itemList/itemList"
-import { useEffect, useState } from "react"
 
 const ItemListContainer = ({mensaje})=>{
     
-    const[serverOkey, setServerOkey] = useState(true)
     const[products, setProducts]= useState(undefined)
+
+    const {category} = useParams()
     
     useEffect(()=>{
-        bringList(serverOkey).then((res)=>{setProducts(res)}).catch((err)=>{console.log(err)})
-
-    }, [])
+        setProducts(undefined)
+        if(category){
+            bringCategory(category).then((res)=>{setProducts(res)}).catch((err)=>{console.log(err)})
+        }else{
+            bringList().then((res)=>{setProducts(res)}).catch((err)=>{console.log(err)})
+        }
+    }, [category])
     
 
 
     return(
-        <>
-            <h1>Este es el mensaje: "{mensaje}"</h1>
+        <div className="item-list-container">
+            {mensaje ? <h1>Este es el mensaje: "{mensaje}"</h1> : null}
             {products===undefined?<h1>Loading ...</h1>:<ItemList productList={products} />}
-        </>
+        </div>
     )
 }
 

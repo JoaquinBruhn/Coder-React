@@ -34,3 +34,8 @@
     padding: 5px;
     font-weight: 700;
 }
+
+.item-card > div > button > a{
+    color: inherit;
+    text-decoration: none;
+}

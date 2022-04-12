@@ -4,7 +4,7 @@ const data = [
     productID: "top123",
     description: "It is a black T-shirt. Generic T-shirt for use in most places.",
     pictureURL: "https://via.placeholder.com/350x150",
-    category: "top",
+    category: "tops",
     price: 800,
     stock: 7,
     size: "M",
@@ -14,7 +14,7 @@ const data = [
     productID: "top456",
     description: "It is a red sweater. Comfy for winter and family meet-ups.",
     pictureURL: "https://via.placeholder.com/350x150",
-    category: "top",
+    category: "tops",
     price: 1100,
     stock: 12,
     size: "s",
@@ -24,7 +24,7 @@ const data = [
     productID: "top789",
     description: "It is a long sleeved blue T-shirt. It's design is good for a lot of situations.",
     pictureURL: "https://via.placeholder.com/350x150",
-    category: "top",
+    category: "tops",
     price: 900,
     stock: 11,
     size: "l",
@@ -71,22 +71,10 @@ const data = [
   },
 ];
 
-export const bringDetail = () => {
+export const bringList = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (data[0]) {
-        resolve(data[0]);
-      } else {
-        reject("Item not found");
-      }
-    }, 3000);
-  });
-};
-
-export const bringList = (status) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (status) {
+      if (data) {
         resolve(data);
       } else {
         reject("server is down");
@@ -94,5 +82,32 @@ export const bringList = (status) => {
     }, 3000);
   });
 };
+
+export const bringCategory = (params) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (data.length > 0) {
+        const category = data.filter(ob => ob.category === params)
+        resolve(category);
+      } else {
+        reject("server is down");
+      }
+    }, 2000);
+  });
+};
+
+export const bringDetail = (detailedProduct) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (data.length > 0) {
+        const product = data.filter(ob => ob.productID === detailedProduct.itemID)
+        resolve(...product);
+      } else {
+        reject("Item not found");
+      }
+    }, 3000);
+  });
+};
+
 
 export default data;

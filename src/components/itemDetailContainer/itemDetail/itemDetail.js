@@ -3,7 +3,6 @@ import ItemCount from "../../itemCount/itemCount";
 import "./itemDetail.css";
 
 const ItemDetail = ({ productDetail }) => {
-  console.log(productDetail);
   const [count, setCount] = useState(1);
 
   const onAdd = () => {

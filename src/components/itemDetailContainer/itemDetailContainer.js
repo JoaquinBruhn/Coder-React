@@ -3,19 +3,21 @@ import ItemDetail from "./itemDetail/itemDetail";
 import { bringDetail } from "../asyncmock";
 
 import "./itemDetailContainer.css";
+import { useParams } from "react-router-dom";
 
 const ItemDetailContainer = () => {
   const [product, setProduct] = useState("not loaded");
+  const detailedProduct = useParams()
 
   useEffect(() => {
-    bringDetail()
+    bringDetail(detailedProduct)
       .then((res) => {
         setProduct(res);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [product]);
+  }, [detailedProduct]);
 
   return (
     <div className="itemDetailContainer">
