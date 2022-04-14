@@ -4,6 +4,11 @@ import "./itemDetail.css";
 
 const ItemDetail = ({ productDetail }) => {
   const [count, setCount] = useState(1);
+  const [readyToBuy, setReadyToBuy] = useState(false);
+
+  const lockAmount = () => {
+    setReadyToBuy(!readyToBuy);
+  };
 
   const onAdd = () => {
     setCount(count + 1);
@@ -24,6 +29,7 @@ const ItemDetail = ({ productDetail }) => {
         <p className="detail-info">remaining in stock: {productDetail.stock}</p>
       </div>
       <ItemCount onAdd={onAdd} onSubtract={onSubtract} count={count} stock={productDetail.stock} />
+      <button onClick={lockAmount}>select amount</button>
     </div>
   );
 };
