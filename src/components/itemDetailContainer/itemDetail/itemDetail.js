@@ -1,12 +1,19 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import ItemCount from "../../itemCount/itemCount";
 import "./itemDetail.css";
 
 const ItemDetail = ({ productDetail }) => {
   const [count, setCount] = useState(1);
   const [readyToBuy, setReadyToBuy] = useState(false);
+  const [addedProduct, setAddedProduct] = useState(undefined)
 
   const lockAmount = () => {
+    if(!readyToBuy){
+      const prod = productDetail
+      prod.quantity=count
+      setAddedProduct(prod)
+    }
     setReadyToBuy(!readyToBuy);
   };
 
@@ -28,8 +35,11 @@ const ItemDetail = ({ productDetail }) => {
         <p className="detail-info">Avaliable Size: {productDetail.size}</p>
         <p className="detail-info">remaining in stock: {productDetail.stock}</p>
       </div>
-      <ItemCount onAdd={onAdd} onSubtract={onSubtract} count={count} stock={productDetail.stock} />
-      <button onClick={lockAmount}>select amount</button>
+      <div>
+        {readyToBuy?<h3>You have selected {count}.</h3>:<ItemCount onAdd={onAdd} onSubtract={onSubtract} count={count} stock={productDetail.stock} />}
+        <button onClick={lockAmount}>{readyToBuy?"change amount":"select amount"}</button>
+        {readyToBuy? <button><Link to={"/cart"}>Go to the cart</Link></button>:null}
+      </div>
     </div>
   );
 };
