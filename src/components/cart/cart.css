@@ -1,0 +1,24 @@
+.product-cartContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:100vw;
+
+}
+
+.product-cartCard{
+    display:flex;
+    justify-content: space-between;
+    width:70%;
+    padding:30px 20px;
+    margin: 20px 0px;
+    background-color: rgba(247, 255, 136, 0.7);
+}
+
+.product-cartCard > div{
+    margin: 0px 100px;
+}
+
+.product-cartIMG{
+    
+}
