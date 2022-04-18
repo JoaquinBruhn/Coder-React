@@ -1,9 +1,10 @@
 import {BsFillCartCheckFill} from "react-icons/bs"
+import { Link } from "react-router-dom"
 import "./cartWidget.css"
 
 const CartWidget = ()=>{
     return(
-        <h4 className="cart-widget"> <BsFillCartCheckFill/> 4</h4>
+        <Link to="/cart" className="cart-widget"><h4> <BsFillCartCheckFill/> 4</h4></Link>
     )
 }
 

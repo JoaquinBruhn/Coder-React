@@ -1,21 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import CartContext from "../../../context/cartContext";
 import ItemCount from "../../itemCount/itemCount";
 import "./itemDetail.css";
 
 const ItemDetail = ({ productDetail }) => {
-  const [count, setCount] = useState(1);
-  const [readyToBuy, setReadyToBuy] = useState(false);
-  const [addedProduct, setAddedProduct] = useState(undefined)
+  const { addToCart } = useContext(CartContext);
 
-  const lockAmount = () => {
-    if(!readyToBuy){
-      const prod = productDetail
-      prod.quantity=count
-      setAddedProduct(prod)
-    }
-    setReadyToBuy(!readyToBuy);
-  };
+  const [count, setCount] = useState(0);
+  const [readyToBuy, setReadyToBuy] = useState(false);
 
   const onAdd = () => {
     setCount(count + 1);
@@ -23,6 +16,15 @@ const ItemDetail = ({ productDetail }) => {
 
   const onSubtract = () => {
     setCount(count - 1);
+  };
+
+  const lockAmount = () => {
+    if (!readyToBuy) {
+      const prod = productDetail;
+      prod.quantity = count;
+      addToCart(prod);
+    }
+    setReadyToBuy(!readyToBuy);
   };
 
   return (
@@ -36,9 +38,17 @@ const ItemDetail = ({ productDetail }) => {
         <p className="detail-info">remaining in stock: {productDetail.stock}</p>
       </div>
       <div>
-        {readyToBuy?<h3>You have selected {count}.</h3>:<ItemCount onAdd={onAdd} onSubtract={onSubtract} count={count} stock={productDetail.stock} />}
-        <button onClick={lockAmount}>{readyToBuy?"change amount":"select amount"}</button>
-        {readyToBuy? <button><Link to={"/cart"}>Go to the cart</Link></button>:null}
+        {readyToBuy ? (
+          <h3>You have selected {count}.</h3>
+        ) : (
+          <ItemCount onAdd={onAdd} onSubtract={onSubtract} count={count} stock={productDetail.stock} />
+        )}
+        <button onClick={lockAmount}>{readyToBuy ? "change amount" : "select amount"}</button>
+        {readyToBuy ? (
+          <button>
+            <Link to={"/cart"}>Go to the cart</Link>
+          </button>
+        ) : null}
       </div>
     </div>
   );
