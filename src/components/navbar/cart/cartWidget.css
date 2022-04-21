@@ -1,12 +1,16 @@
-.cart-widget{
+.cart-widget-active{
     text-decoration: none;
     color: inherit;
-}
-
-.cart-widget > h4{
     margin: 20px;
     padding: 10px;
     background-color: white;
     border-radius: 50px;
+}
 
+.cart-widget-inactive{
+    display: none;
+}
+
+.cart-widget-active > h4{
+    margin: 0;
 }

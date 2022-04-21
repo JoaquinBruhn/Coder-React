@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import ItemList from "./itemList/itemList"
+// import { collection, getDocs } from "firebase/firestore"
 import {bringCategory, bringList} from "../asyncmock"
 
 import "./itemListContainer.css"
+// import { firestoreDb } from "../../services/firebase"
 
 const ItemListContainer = ({mensaje})=>{
     
@@ -18,6 +20,13 @@ const ItemListContainer = ({mensaje})=>{
         }else{
             bringList().then((res)=>{setProducts(res)}).catch((err)=>{console.log(err)})
         }
+        // getDocs(collection(firestoreDb, "products")).then(response=>{
+        //     console.log(response);
+        //     const products = response.docs.map(doc=>{
+        //         return{id:doc.id, ...doc.data()}
+        //     })
+        //     console.log(products);
+        // })
     }, [category])
     
 
