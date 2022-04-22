@@ -3,7 +3,7 @@ import "./itemCount.css";
 const ItemCount = ({ count, onAdd, onSubtract, stock }) => {
   return (
     <div className="item-count">
-      {count <= 0 ? (
+      {count <= 1 ? (
         <button className="count-inactive">-</button>
       ) : (
         <button className="count-active" onClick={onSubtract}>

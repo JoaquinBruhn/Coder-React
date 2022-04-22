@@ -33,3 +33,13 @@
     align-self: center;
     font-size: 18px;
 }
+
+.controller-buttons{
+    margin: 15px;
+    padding: 5px;
+}
+
+.controller-buttons>a{
+    color: inherit;    
+    text-decoration: none;
+}

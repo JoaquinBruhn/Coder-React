@@ -7,18 +7,18 @@ import "./cartWidget.css"
 const CartWidget = ()=>{
 
     const [classStatus, setClassStatus]= useState(false)
-    const { cartSize } = useContext(CartContext)
+    const { cart, widgetUpdate } = useContext(CartContext)
 
     useEffect(()=>{
-        if(cartSize!==0){
+        if(cart.length!==0){
             setClassStatus(true)
         }else{
             setClassStatus(false)
         }
-    },[cartSize])
+    },[cart])
 
     return(
-        <Link to="/cart" className={classStatus?"cart-widget-active":"cart-widget-inactive"}><h4> <BsFillCartCheckFill/> {cartSize}</h4></Link>
+        <Link to="/cart" className={classStatus?"cart-widget-active":"cart-widget-inactive"}><h4> <BsFillCartCheckFill/> {widgetUpdate()}</h4></Link>
     )
 }
 

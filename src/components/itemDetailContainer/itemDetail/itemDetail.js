@@ -1,14 +1,22 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CartContext from "../../../context/cartContext";
 import ItemCount from "../../itemCount/itemCount";
 import "./itemDetail.css";
 
 const ItemDetail = ({ productDetail }) => {
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, getQuantityInCart } = useContext(CartContext);
 
-  const [count, setCount] = useState(0);
   const [readyToBuy, setReadyToBuy] = useState(false);
+  const [count, setCount] = useState(1);
+
+  useEffect(() => {
+    let initialCount = getQuantityInCart(productDetail.productID);
+    if (initialCount !== undefined) {
+      setCount(initialCount);
+      setReadyToBuy(true);
+    }
+  }, []);
 
   const onAdd = () => {
     setCount(count + 1);
@@ -43,12 +51,21 @@ const ItemDetail = ({ productDetail }) => {
         ) : (
           <ItemCount onAdd={onAdd} onSubtract={onSubtract} count={count} stock={productDetail.stock} />
         )}
-        <button onClick={lockAmount}>{readyToBuy ? "change amount" : "select amount"}</button>
-        {readyToBuy ? (
-          <button>
-            <Link to={"/cart"}>Go to the cart</Link>
+        <button className="controller-buttons" onClick={lockAmount}>
+          {readyToBuy ? "change amount" : "select amount"}
+        </button>
+        <div>
+          {readyToBuy ? (
+            <>
+              <button className="controller-buttons">
+                <Link to={"/cart"}>Finsish my purchase</Link>
+              </button>
+            </>
+          ) : null}
+          <button className="controller-buttons">
+            <Link to={"/"}>Back to the shop</Link>
           </button>
-        ) : null}
+        </div>
       </div>
     </div>
   );

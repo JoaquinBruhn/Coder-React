@@ -1,11 +1,12 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import CartContext from "../../context/cartContext";
-import CustOnClick from "../../tools/button";
+import CardCart from "./cartCard/cartCard";
 
 import "./cart.css";
 
 const Cart = () => {
-  const { cart, removeItem, clearCart } = useContext(CartContext);
+  const { cart, clearCart } = useContext(CartContext);
 
   return (
     <>
@@ -13,26 +14,17 @@ const Cart = () => {
       {cart.length > 0 ? (
         <div className="product-cartContainer">
           {cart.map((el) => {
-            return (
-              <div className="product-cartCard" key={el.productID}>
-                <div>
-                  <h4>{el.productName}</h4>
-                  <p>Price: ${el.price}</p>
-                  <p>Amount: {el.quantity}</p>
-                  <CustOnClick func={removeItem} message="Remove from cart" param={el} />
-                </div>
-                <div>
-                  <img className="product-cartIMG" alt={el.productName} src={el.pictureURL} />
-                </div>
-              </div>
-            );
+            return <CardCart product={el} key={el.productID} />;
           })}
         </div>
       ) : (
-        <h2>The cart is epmty</h2>
+        <h2>The cart is empty</h2>
       )}
       <br />
       <button onClick={clearCart}>Clear cart</button>
+      <button>
+        <Link to={"/"}>Back to the shop</Link>
+      </button>
     </>
   );
 };
