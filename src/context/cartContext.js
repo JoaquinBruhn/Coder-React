@@ -73,6 +73,14 @@ export const CartContextProvider = ({ children }) => {
     return cart.find((prod) => prod.productID === id)?.quantity;
   };
 
+  const totalPrice = () => {
+    let total = 0;
+    cart.forEach((prod) => {
+      total += prod.price * prod.quantity;
+    });
+    console.log(total);
+    return total;
+  };
   // 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 
   return (
@@ -86,6 +94,7 @@ export const CartContextProvider = ({ children }) => {
         clearCart,
         widgetUpdate,
         getQuantityInCart,
+        totalPrice,
       }}
     >
       {children}

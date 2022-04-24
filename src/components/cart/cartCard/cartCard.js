@@ -12,8 +12,8 @@ const CardCart = ({ product }) => {
       <div>
         <h4>{product.productName}</h4>
         <p>Amount: {product.quantity}</p>
-        <p>Price each: ${product.price}</p>
-        <p>Price total: ${product.price * product.quantity}</p>
+        <p>Price for each: ${product.price}</p>
+        <p>Priece for all: ${product.price * product.quantity}</p>
         <CustOnClick func={removeItem} message="Remove from cart" param={product} />
       </div>
       <div>
