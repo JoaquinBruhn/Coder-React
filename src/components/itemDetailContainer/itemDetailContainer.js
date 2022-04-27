@@ -7,17 +7,17 @@ import { useParams } from "react-router-dom";
 
 const ItemDetailContainer = () => {
   const [product, setProduct] = useState("not loaded");
-  const detailedProduct = useParams();
+  const { itemId } = useParams();
 
   useEffect(() => {
-    getDoc(doc(firestoreDb, "products", detailedProduct.itemID))
+    getDoc(doc(firestoreDb, "products", itemId))
       .then((response) => {
         const prod = { productID: response.id, ...response.data() };
         console.log(response);
         setProduct(prod);
       })
       .catch((err) => console.log(err));
-  }, [detailedProduct]);
+  }, [itemId]);
 
   return (
     <div className="itemDetailContainer">

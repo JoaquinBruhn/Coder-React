@@ -78,7 +78,6 @@ export const CartContextProvider = ({ children }) => {
     cart.forEach((prod) => {
       total += prod.price * prod.quantity;
     });
-    console.log(total);
     return total;
   };
   // 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
