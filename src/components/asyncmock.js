@@ -7,7 +7,7 @@ const data = [
     category: "tops",
     price: 800,
     stock: 7,
-    size: "M",
+    size: "m",
   },
   {
     productName: "red sweater",
@@ -47,7 +47,7 @@ const data = [
     category: "pants",
     price: 1200,
     stock: 9,
-    size: "M",
+    size: "m",
   },
   {
     productName: "white socks",
@@ -87,7 +87,7 @@ export const bringCategory = (params) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (data.length > 0) {
-        const category = data.filter(ob => ob.category === params)
+        const category = data.filter((ob) => ob.category === params);
         resolve(category);
       } else {
         reject("server is down");
@@ -100,7 +100,7 @@ export const bringDetail = (detailedProduct) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (data.length > 0) {
-        const product = data.filter(ob => ob.productID === detailedProduct.itemID)
+        const product = data.filter((ob) => ob.productID === detailedProduct.itemID);
         resolve(...product);
       } else {
         reject("Item not found");
@@ -108,6 +108,5 @@ export const bringDetail = (detailedProduct) => {
     }, 3000);
   });
 };
-
 
 export default data;

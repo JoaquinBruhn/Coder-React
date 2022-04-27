@@ -16,7 +16,7 @@ const ItemDetail = ({ productDetail }) => {
       setCount(initialCount);
       setReadyToBuy(true);
     }
-  }, []);
+  }, []); //eslint-disable-line
 
   const onAdd = () => {
     setCount(count + 1);

@@ -8,6 +8,16 @@ import "./cart.css";
 const Cart = () => {
   const { cart, clearCart, totalPrice } = useContext(CartContext);
 
+  // const objOrder = {
+  //   items: cart,
+  //   buyer: {
+  //     name: "joaquin",
+  //     phone: "123456789",
+  //     email: "email@gmail.com",
+  //   },
+  //   total: totalPrice,
+  // };
+
   return (
     <>
       <h1>This is the cart component</h1>
