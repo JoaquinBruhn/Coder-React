@@ -13,7 +13,6 @@ const ItemDetailContainer = () => {
     getDoc(doc(firestoreDb, "products", itemId))
       .then((response) => {
         const prod = { productID: response.id, ...response.data() };
-        console.log(response);
         setProduct(prod);
       })
       .catch((err) => console.log(err));

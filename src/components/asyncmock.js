@@ -1,7 +1,6 @@
 const data = [
   {
     productName: "black t-shirt",
-    productID: "top123",
     description: "It is a black T-shirt. Generic T-shirt for use in most places.",
     pictureURL: "https://via.placeholder.com/350x150",
     category: "tops",
@@ -11,7 +10,6 @@ const data = [
   },
   {
     productName: "red sweater",
-    productID: "top456",
     description: "It is a red sweater. Comfy for winter and family meet-ups.",
     pictureURL: "https://via.placeholder.com/350x150",
     category: "tops",
@@ -21,7 +19,6 @@ const data = [
   },
   {
     productName: "long sleeve blue t-shirt",
-    productID: "top789",
     description: "It is a long sleeved blue T-shirt. It's design is good for a lot of situations.",
     pictureURL: "https://via.placeholder.com/350x150",
     category: "tops",
@@ -31,7 +28,6 @@ const data = [
   },
   {
     productName: "black shorts",
-    productID: "pant741",
     description: "It is a pair of black shorts. Nice to wear on summer.",
     pictureURL: "https://via.placeholder.com/350x150",
     category: "pants",
@@ -41,7 +37,6 @@ const data = [
   },
   {
     productName: "blue jeans",
-    productID: "pant852",
     description: "It is a pair of blue jeans. Good for every situation.",
     pictureURL: "https://via.placeholder.com/350x150",
     category: "pants",
@@ -51,7 +46,6 @@ const data = [
   },
   {
     productName: "white socks",
-    productID: "shoe159",
     description: "It is a pair of white socks. Comfortable for winter.",
     pictureURL: "https://via.placeholder.com/350x150",
     category: "shoes",
@@ -61,7 +55,6 @@ const data = [
   },
   {
     productName: "black sneakers",
-    productID: "shoe753",
     description: "It is a pair of black sneekers. Keeps the foot comfortable on most places while looking good.",
     pictureURL: "https://via.placeholder.com/350x150",
     category: "shoes",
