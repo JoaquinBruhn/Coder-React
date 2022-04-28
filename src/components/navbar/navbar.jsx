@@ -17,7 +17,7 @@ const Navbar = ()=>{
             })
             setCategories(cat)
         }).catch(err=>{console.log(err);})
-    },[categories])
+    },[])
 
     return(
         <div className="navbar">
