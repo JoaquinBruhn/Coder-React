@@ -32,7 +32,7 @@ const Navbar = ()=>{
                     })
                 :
                     null}
-
+                <NavLink to={"/admin"}>Admin</NavLink>
                 <CartWidget/>
             </div>
         </div>
