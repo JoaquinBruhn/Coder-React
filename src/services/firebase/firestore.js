@@ -1,40 +1,119 @@
-import { firestoreDb } from "."
-import { getDocs, getDoc, collection, doc, query, where, orderBy } from "firebase/firestore"
-import { productAdapterFirestore } from "../../adapters/productAdapters"
+import { firestoreDb } from ".";
+import {
+  addDoc,
+  getDocs,
+  getDoc,
+  collection,
+  documentId,
+  doc,
+  query,
+  where,
+  orderBy,
+  writeBatch,
+} from "firebase/firestore";
+import {
+  productAdapterFirestore,
+  categoryAdapterFirestore,
+} from "../../adapters/productAdapters";
 
+export const loadCategories = () => {
+  return new Promise((resolve, reject) => {
+    const colRef = query(
+      collection(firestoreDb, "categories"),
+      orderBy("order", "asc")
+    );
 
-export const loadProducts = (categoryID)=>{
-    return new Promise((resolve,reject)=>{
-        
-        const docRef = categoryID!==undefined ?
-        query(collection(firestoreDb, "products"),where("category","==", categoryID))
-        :
-        query(collection(firestoreDb, "products"),orderBy("productName", "asc"))
-
-        getDocs(docRef)
-        .then(response=>{
-            const prods = response.docs.map((doc) => {
-                return productAdapterFirestore(doc)
-            });
-            resolve(prods)
-        })
-        .catch((error)=>{
-            reject(error)
-        })
-    })
-}
-
-export const loadDetail = (itemId)=>{
-    return new Promise((resolve, reject)=>{
-        const docRef = doc(firestoreDb, "products", itemId)
-
-        getDoc(docRef)
-        .then(response => {
-            const prod = productAdapterFirestore(response);
-            resolve(prod)
-        })
-        .catch((err) => {
-            reject(err)
+    getDocs(colRef)
+      .then((response) => {
+        const cat = response.docs.map((doc) => {
+          return categoryAdapterFirestore(doc);
         });
-    })
-}
+        resolve(cat);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export const loadProducts = (categoryID) => {
+  return new Promise((resolve, reject) => {
+    const colRef =
+      categoryID !== undefined
+        ? query(
+            collection(firestoreDb, "products"),
+            where("category", "==", categoryID)
+          )
+        : query(
+            collection(firestoreDb, "products"),
+            orderBy("productName", "asc")
+          );
+
+    getDocs(colRef)
+      .then((response) => {
+        const prods = response.docs.map((doc) => {
+          return productAdapterFirestore(doc);
+        });
+        resolve(prods);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export const loadDetail = (itemId) => {
+  return new Promise((resolve, reject) => {
+    const docRef = doc(firestoreDb, "products", itemId);
+
+    getDoc(docRef)
+      .then((response) => {
+        const prod = productAdapterFirestore(response);
+        resolve(prod);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export const startPurchase = (objOrder, purchaseIds) => {
+  return new Promise((resolve, reject) => {
+    const batch = writeBatch(firestoreDb);
+    const colRef = collection(firestoreDb, "products");
+    const docRef = query(colRef, where(documentId(), "in", purchaseIds));
+    const outOfStock = [];
+
+    getDocs(docRef)
+      .then((response) => {
+        response.docs.forEach((doc) => {
+          const dataDoc = doc.data();
+          const prodQuantity = objOrder.items.find(
+            (prod) => prod.productID === doc.id
+          )?.quantity;
+
+          if (dataDoc.stock >= prodQuantity) {
+            batch.update(doc.ref, { stock: dataDoc.stock - prodQuantity });
+          } else {
+            outOfStock.push({ productID: doc.id, ...dataDoc });
+          }
+        });
+      })
+      .then(() => {
+        if (outOfStock.length === 0) {
+          const ordersRef = collection(firestoreDb, "orders");
+          console.log(objOrder);
+          return addDoc(ordersRef, objOrder);
+        } else {
+          reject({
+            errName: "outOfStock",
+            OOSproducts: outOfStock,
+          });
+        }
+      })
+      .then(({ id }) => {
+        batch.commit();
+        resolve(id);
+      });
+  });
+};

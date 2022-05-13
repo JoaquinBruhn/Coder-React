@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { addDoc, collection, documentId, getDocs, query, Timestamp, where, writeBatch } from "firebase/firestore";
-import { firestoreDb } from "../../services/firebase/index";
+import { Timestamp } from "firebase/firestore";
 import CartContext from "../../context/cartContext";
 import CardCart from "./cartCard/cartCard";
 
 import "./cart.css";
+import { startPurchase } from "../../services/firebase/firestore";
 
 const Cart = () => {
   const { cart, clearCart, totalPrice } = useContext(CartContext);
@@ -29,42 +29,14 @@ const Cart = () => {
 
     const purchaseIds = cart.map((prod) => prod.productID);
 
-    const batch = writeBatch(firestoreDb);
-
-    const collectionRef = collection(firestoreDb, "products");
-
-    const outOfStock = [];
-
-    getDocs(query(collectionRef, where(documentId(), "in", purchaseIds)))
-      .then((response) => {
-        response.docs.forEach((doc) => {
-          const dataDoc = doc.data();
-          const prodQuantity = cart.find((prod) => prod.productID === doc.id)?.quantity;
-
-          if (dataDoc.stock >= prodQuantity) {
-            batch.update(doc.ref, { stock: dataDoc.stock - prodQuantity });
-          } else {
-            outOfStock.push({ productID: doc.id, ...dataDoc });
-          }
-        });
-      })
-      .then(() => {
-        if (outOfStock.length === 0) {
-          const ordersRef = collection(firestoreDb, "orders");
-          console.log(objOrder);
-          return addDoc(ordersRef, objOrder);
-        } else {
-          setMissingStock(outOfStock);
-          return Promise.reject({ errName: "outOfStock", products: outOfStock });
-        }
-      })
-      .then(({ id }) => {
-        batch.commit();
+    startPurchase(objOrder, purchaseIds)
+      .then((id) => {
         console.log(id);
         setPurchaseReceipt(id);
       })
       .catch((error) => {
         console.log(error);
+        setMissingStock(error.OOSproducts);
         setPurchaseReceipt("Missing stock");
       })
       .finally(() => {
@@ -117,10 +89,14 @@ const Cart = () => {
     return (
       <div>
         {purchaseReceipt !== "Missing stock" ? (
-          <h2>Thanks for your purchase, your receipt number is: {purchaseReceipt} </h2>
+          <h2>
+            Thanks for your purchase, your receipt number is: {purchaseReceipt}{" "}
+          </h2>
         ) : (
           <div>
-            <h2>Error: {purchaseReceipt}, the following items are out of stock</h2>
+            <h2>
+              Error: {purchaseReceipt}, the following items are out of stock
+            </h2>
             <ul>
               {missingStock.map((prod) => {
                 return <li key={prod.productID}>{prod.productName}</li>;
