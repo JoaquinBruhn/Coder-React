@@ -8,15 +8,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Admin from "./components/adimn/admin";
 
 function App() {
-  const mensaje = "buenos dias";
-
   return (
     <div className="App">
       <CartContextProvider>
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route exact path="/" element={<ItemListContainer mensaje={mensaje} />} />
+            <Route exact path="/" element={<ItemListContainer />} />
             <Route exact path="/category/:categoryId" element={<ItemListContainer />} />
             <Route exact path="/item/:itemId" element={<ItemDetailContainer />} />
             <Route exact path="/cart" element={<Cart />} />

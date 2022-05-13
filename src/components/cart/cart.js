@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { addDoc, collection, documentId, getDocs, query, Timestamp, where, writeBatch } from "firebase/firestore";
-import { firestoreDb } from "../../services/firebase";
+import { firestoreDb } from "../../services/firebase/index";
 import CartContext from "../../context/cartContext";
 import CardCart from "./cartCard/cartCard";
 
