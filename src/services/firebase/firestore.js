@@ -11,17 +11,11 @@ import {
   orderBy,
   writeBatch,
 } from "firebase/firestore";
-import {
-  productAdapterFirestore,
-  categoryAdapterFirestore,
-} from "../../adapters/productAdapters";
+import { productAdapterFirestore, categoryAdapterFirestore } from "../../adapters/productAdapters";
 
 export const loadCategories = () => {
   return new Promise((resolve, reject) => {
-    const colRef = query(
-      collection(firestoreDb, "categories"),
-      orderBy("order", "asc")
-    );
+    const colRef = query(collection(firestoreDb, "categories"), orderBy("order", "asc"));
 
     getDocs(colRef)
       .then((response) => {
@@ -40,14 +34,8 @@ export const loadProducts = (categoryID) => {
   return new Promise((resolve, reject) => {
     const colRef =
       categoryID !== undefined
-        ? query(
-            collection(firestoreDb, "products"),
-            where("category", "==", categoryID)
-          )
-        : query(
-            collection(firestoreDb, "products"),
-            orderBy("productName", "asc")
-          );
+        ? query(collection(firestoreDb, "products"), where("category", "==", categoryID))
+        : query(collection(firestoreDb, "products"), orderBy("productName", "asc"));
 
     getDocs(colRef)
       .then((response) => {
@@ -87,15 +75,13 @@ export const startPurchase = (objOrder, purchaseIds) => {
     getDocs(docRef)
       .then((response) => {
         response.docs.forEach((doc) => {
-          const dataDoc = doc.data();
-          const prodQuantity = objOrder.items.find(
-            (prod) => prod.productID === doc.id
-          )?.quantity;
+          const dataDoc = productAdapterFirestore(doc);
+          const prodQuantity = objOrder.items.find((prod) => prod.productID === dataDoc.productID)?.quantity;
 
           if (dataDoc.stock >= prodQuantity) {
             batch.update(doc.ref, { stock: dataDoc.stock - prodQuantity });
           } else {
-            outOfStock.push({ productID: doc.id, ...dataDoc });
+            outOfStock.push(productAdapterFirestore(doc));
           }
         });
       })

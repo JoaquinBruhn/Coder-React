@@ -1,15 +1,48 @@
+.cart-not-made{
+  background-color: black;
+}
+
+.cart-not-made > h1{
+  margin: 0;
+  padding: 10px;
+  color: white;
+}
+
 .product-cartContainer{
     display: flex;
     flex-direction: column;
     align-items: center;
     width:100vw;
-
 }
 
 .product-cartContainer > button{
     margin: 10px;
     padding: 5px;
     border-radius: 50px;
+}
+
+.product-cartContainer > h4 {
+  color: white;
+}
+
+.form-container {
+  width: 100%;
+  height: 110px;
+  overflow: hidden;
+  background-color: white;
+  transition: 0.5s ease-in;
+}
+
+.form-container:hover {
+  height: 400px;
+  transition: 0.5s ease-in;
+}
+
+.form-container > form {
+  display:grid;
+    position: center;
+    grid-gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .lds-ring {

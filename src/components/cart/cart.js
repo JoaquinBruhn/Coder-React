@@ -6,6 +6,7 @@ import CardCart from "./cartCard/cartCard";
 
 import "./cart.css";
 import { startPurchase } from "../../services/firebase/firestore";
+import CartForm from "./cartForm/cartForm";
 
 const Cart = () => {
   const { cart, clearCart, totalPrice } = useContext(CartContext);
@@ -47,8 +48,8 @@ const Cart = () => {
 
   if (purchaseState === "not made") {
     return (
-      <>
-        <h1>This is the cart component</h1>
+      <div className="cart-not-made">
+        <h1>Welcome to the cart</h1>
         {cart.length > 0 ? (
           <div className="product-cartContainer">
             {cart.map((el) => {
@@ -56,6 +57,7 @@ const Cart = () => {
             })}
             <h4>Total: ${totalPrice()}</h4>
             <button onClick={clearCart}>Clear cart</button>
+            <CartForm />
             <button onClick={makePurchase}>Finish Purchase</button>
           </div>
         ) : (
@@ -67,7 +69,7 @@ const Cart = () => {
           </div>
         )}
         <br />
-      </>
+      </div>
     );
   }
 
@@ -89,14 +91,10 @@ const Cart = () => {
     return (
       <div>
         {purchaseReceipt !== "Missing stock" ? (
-          <h2>
-            Thanks for your purchase, your receipt number is: {purchaseReceipt}{" "}
-          </h2>
+          <h2>Thanks for your purchase, your receipt number is: {purchaseReceipt} </h2>
         ) : (
           <div>
-            <h2>
-              Error: {purchaseReceipt}, the following items are out of stock
-            </h2>
+            <h2>Error: {purchaseReceipt}, the following items are out of stock</h2>
             <ul>
               {missingStock.map((prod) => {
                 return <li key={prod.productID}>{prod.productName}</li>;
