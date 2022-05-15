@@ -4,7 +4,7 @@ import ItemList from "./itemList/itemList";
 import { loadProducts } from "../../services/firebase/firestore";
 import "./itemListContainer.css";
 
-const ItemListContainer = ({ mensaje }) => {
+const ItemListContainer = () => {
   const [products, setProducts] = useState(undefined);
 
   const { categoryId } = useParams();

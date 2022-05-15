@@ -11,6 +11,7 @@ import CartForm from "./cartForm/cartForm";
 const Cart = () => {
   const { cart, clearCart, totalPrice } = useContext(CartContext);
 
+  const [buyerData, setBuyerData] = useState(undefined);
   const [purchaseState, setpurchaseState] = useState("not made");
   const [purchaseReceipt, setPurchaseReceipt] = useState("error");
   const [missingStock, setMissingStock] = useState([]);
@@ -19,11 +20,7 @@ const Cart = () => {
     setpurchaseState("processing");
     const objOrder = {
       items: cart,
-      buyer: {
-        name: "joaquin",
-        phone: "987654321",
-        email: "email@gmail.com",
-      },
+      buyer: buyerData,
       total: totalPrice(),
       date: Timestamp.fromDate(new Date()),
     };
@@ -46,6 +43,10 @@ const Cart = () => {
       });
   };
 
+  const editInfo = () => {
+    setBuyerData(undefined);
+  };
+
   if (purchaseState === "not made") {
     return (
       <div className="cart-not-made">
@@ -55,15 +56,30 @@ const Cart = () => {
             {cart.map((el) => {
               return <CardCart product={el} key={el.productID} />;
             })}
-            <h4>Total: ${totalPrice()}</h4>
-            <button onClick={clearCart}>Clear cart</button>
-            <CartForm />
-            <button onClick={makePurchase}>Finish Purchase</button>
+            <h4>Your total price is: ${totalPrice()}</h4>
+            <button className="cart-button" onClick={clearCart}>
+              Clear cart
+            </button>
+            <div className="form-container">
+              <h4>Please fill in your data to complete the purchase</h4>
+              <p>(mandatory)</p>
+              <CartForm buyerData={buyerData} setBuyerData={setBuyerData} />
+              {buyerData ? (
+                <>
+                  <button className="cart-button" onClick={editInfo}>
+                    Edit information
+                  </button>
+                  <button className="cart-button" onClick={makePurchase}>
+                    Finish Purchase
+                  </button>
+                </>
+              ) : null}
+            </div>
           </div>
         ) : (
           <div>
             <h2>The cart is empty</h2>
-            <button>
+            <button className="cart-button">
               <Link to={"/"}>Back to the shop</Link>
             </button>
           </div>
@@ -89,11 +105,24 @@ const Cart = () => {
 
   if (purchaseState === "done") {
     return (
-      <div>
+      <div className="purchase">
         {purchaseReceipt !== "Missing stock" ? (
-          <h2>Thanks for your purchase, your receipt number is: {purchaseReceipt} </h2>
+          <div className="purchase-ticket">
+            <h2>Thanks for your purchase</h2>
+            <h2>Your receipt number is: {purchaseReceipt}</h2>
+            <div>
+              <p>Name: {buyerData.name}</p>
+              <p>Email: {buyerData.email}</p>
+              <p>Phone: {buyerData.phone}</p>
+              <p>Address: {buyerData.address}</p>
+            </div>
+            <h3>If you need to contact support, please email at ataraxia@store.com</h3>
+            <button className="cart-button">
+              <Link to={"/"}>Back to the shop</Link>
+            </button>
+          </div>
         ) : (
-          <div>
+          <div className="purchase-error">
             <h2>Error: {purchaseReceipt}, the following items are out of stock</h2>
             <ul>
               {missingStock.map((prod) => {

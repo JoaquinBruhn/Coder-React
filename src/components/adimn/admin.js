@@ -25,7 +25,7 @@ const Admin = () => {
   };
 
   return (
-    <div>
+    <div className="admin-container">
       <h2>Administrator options</h2>
       <div>
         <h4>Set all stock to :</h4>

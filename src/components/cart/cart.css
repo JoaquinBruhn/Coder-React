@@ -2,10 +2,23 @@
   background-color: black;
 }
 
+.cart-button{
+  margin: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 50px;
+}
+
 .cart-not-made > h1{
   margin: 0;
   padding: 10px;
   color: white;
+}
+
+.cart-button > a {
+  font-size: 16px;
+  text-decoration: none;
+  color: inherit;
 }
 
 .product-cartContainer{
@@ -15,34 +28,41 @@
     width:100vw;
 }
 
-.product-cartContainer > button{
-    margin: 10px;
-    padding: 5px;
-    border-radius: 50px;
-}
-
 .product-cartContainer > h4 {
   color: white;
 }
 
 .form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 550px;
   width: 100%;
-  height: 110px;
   overflow: hidden;
   background-color: white;
-  transition: 0.5s ease-in;
 }
 
-.form-container:hover {
-  height: 400px;
-  transition: 0.5s ease-in;
+.purchase{
+  position: absolute;
+  transform: translate(50%,50%);
 }
 
-.form-container > form {
-  display:grid;
-    position: center;
-    grid-gap: 10px;
-    grid-template-columns: repeat(2, 1fr);
+.purchase-ticket{
+  width: 100%;
+  padding: 20px;
+  background-color: white;
+}
+
+.purchase-ticket > div{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.purchase-error{
+  width: 100%;
+  padding: 20px;
+  background-color: white;
 }
 
 .lds-ring {
