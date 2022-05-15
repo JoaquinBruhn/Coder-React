@@ -3,34 +3,42 @@ import ItemDetail from "./itemDetail/itemDetail";
 import "./itemDetailContainer.css";
 import { useParams } from "react-router-dom";
 import { loadDetail } from "../../services/firebase/firestore";
+import Spinner from "../../tools/spinner/spinner";
 
 const ItemDetailContainer = () => {
   const [product, setProduct] = useState("not loaded");
   const { itemId } = useParams();
 
   useEffect(() => {
-    let activeComponentFlag = true
+    let activeComponentFlag = true;
     loadDetail(itemId)
-    .then(res=>{
-      if(activeComponentFlag){
-        setProduct(res)
-      }
-    })
-    .catch(err=>{
-      if(activeComponentFlag){
-        console.log(err);
-      }
-    })
+      .then((res) => {
+        if (activeComponentFlag) {
+          setProduct(res);
+        }
+      })
+      .catch((err) => {
+        if (activeComponentFlag) {
+          console.log(err);
+        }
+      });
 
-    return ()=>{
-      activeComponentFlag = false
-    }
+    return () => {
+      activeComponentFlag = false;
+    };
   }, [itemId]);
 
   return (
     <div className="itemDetailContainer">
       <h1>Product detail</h1>
-      {product === "not loaded" ? <h1>Loading ...</h1> : <ItemDetail productDetail={product} />}
+      {product === "not loaded" ? (
+        <>
+          <h1>Loading ...</h1>
+          <Spinner />
+        </>
+      ) : (
+        <ItemDetail productDetail={product} />
+      )}
     </div>
   );
 };

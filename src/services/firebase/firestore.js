@@ -9,6 +9,7 @@ import {
   query,
   where,
   orderBy,
+  Timestamp,
   writeBatch,
 } from "firebase/firestore";
 import { productAdapterFirestore, categoryAdapterFirestore } from "../../adapters/productAdapters";
@@ -65,7 +66,16 @@ export const loadDetail = (itemId) => {
   });
 };
 
-export const startPurchase = (objOrder, purchaseIds) => {
+export const startPurchase = (buyerData, cart, totPrice) => {
+  const purchaseIds = cart.map((prod) => prod.productID);
+
+  const objOrder = {
+    items: cart,
+    buyer: buyerData,
+    total: totPrice,
+    date: Timestamp.fromDate(new Date()),
+  };
+
   return new Promise((resolve, reject) => {
     const batch = writeBatch(firestoreDb);
     const colRef = collection(firestoreDb, "products");

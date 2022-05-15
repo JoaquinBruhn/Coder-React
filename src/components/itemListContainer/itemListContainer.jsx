@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ItemList from "./itemList/itemList";
 import { loadProducts } from "../../services/firebase/firestore";
 import "./itemListContainer.css";
+import Spinner from "../../tools/spinner/spinner";
 
 const ItemListContainer = () => {
   const [products, setProducts] = useState(undefined);
@@ -33,9 +34,15 @@ const ItemListContainer = () => {
   return (
     <div className="item-list-container">
       {products === undefined ? (
-        <h1>Loading ...</h1>
+        <>
+          <h1 className="ILC-loading">loading ...</h1>
+          <Spinner/>
+        </>
       ) : (
-        <ItemList productList={products} />
+        <>
+          <h1 className="category-title">{categoryId? `${categoryId}`:"catalog"}</h1>
+          <ItemList productList={products} />
+        </>
       )}
     </div>
   );

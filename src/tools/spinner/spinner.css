@@ -1,15 +1,3 @@
-.itemDetailContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.itemDetailContainer > h1{
-    color: white;
-}
-
 .lds-ring {
     display: inline-block;
     position: relative;

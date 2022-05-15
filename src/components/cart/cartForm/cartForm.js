@@ -4,9 +4,11 @@ const CartForm = ({ buyerData, setBuyerData }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const phoneNumb = `(${e.target.phone1.value}) ${e.target.phone2.value}-${e.target.phone3.value}`;
+
     const buyer = {
       name: e.target.name.value,
-      phone: e.target.phone.value,
+      phone: phoneNumb,
       email: e.target.email.value,
       address: e.target.address.value,
     };
@@ -22,7 +24,32 @@ const CartForm = ({ buyerData, setBuyerData }) => {
         </div>
         <div>
           <h3>Phone number:</h3>
-          <input type="text" id="phone" placeholder="(011)1234-5678" required />
+          <div className="phone-numb">
+            <span>
+              {"("}
+              <input type="tel" maxLength={3} minLength={3} id="phone1" placeholder="###" pattern="[0-9]{3}" required />
+              {")"}
+              <input
+                type="tel"
+                maxLength={4}
+                minLength={4}
+                id="phone2"
+                placeholder="####"
+                pattern="[0-9]{4}"
+                required
+              />
+              {"-"}
+              <input
+                type="tel"
+                maxLength={4}
+                minLength={4}
+                id="phone3"
+                placeholder="####"
+                pattern="[0-9]{4}"
+                required
+              />
+            </span>
+          </div>
         </div>
         <div>
           <h3>Email:</h3>

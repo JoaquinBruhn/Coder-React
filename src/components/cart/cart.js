@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { Timestamp } from "firebase/firestore";
 import CartContext from "../../context/cartContext";
 import CardCart from "./cartCard/cartCard";
 
 import "./cart.css";
 import { startPurchase } from "../../services/firebase/firestore";
 import CartForm from "./cartForm/cartForm";
+import Spinner from "../../tools/spinner/spinner";
 
 const Cart = () => {
   const { cart, clearCart, totalPrice } = useContext(CartContext);
@@ -18,16 +18,10 @@ const Cart = () => {
 
   const makePurchase = () => {
     setpurchaseState("processing");
-    const objOrder = {
-      items: cart,
-      buyer: buyerData,
-      total: totalPrice(),
-      date: Timestamp.fromDate(new Date()),
-    };
 
-    const purchaseIds = cart.map((prod) => prod.productID);
+    const totPrice = totalPrice();
 
-    startPurchase(objOrder, purchaseIds)
+    startPurchase(buyerData, cart, totPrice)
       .then((id) => {
         console.log(id);
         setPurchaseReceipt(id);
@@ -77,7 +71,7 @@ const Cart = () => {
             </div>
           </div>
         ) : (
-          <div>
+          <div className="empty-cart">
             <h2>The cart is empty</h2>
             <button className="cart-button">
               <Link to={"/"}>Back to the shop</Link>
@@ -91,14 +85,9 @@ const Cart = () => {
 
   if (purchaseState === "processing") {
     return (
-      <div>
+      <div className="processing-cart">
         <h2>Your order is being processed . . .</h2>
-        <div className="lds-ring">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+        <Spinner />
       </div>
     );
   }

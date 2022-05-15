@@ -5,3 +5,16 @@
     margin-top: 20px;
     width: 100vw;
 }
+
+.item-list-container > h1{
+    text-transform: capitalize;
+    color: white;
+}
+
+.category-title{
+    font-size: 50px;
+}
+
+.ILC-loading {
+    font-size: 35px;
+}
