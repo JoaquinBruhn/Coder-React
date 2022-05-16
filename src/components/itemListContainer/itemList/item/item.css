@@ -15,9 +15,18 @@
     align-items: center;
 }
 
-.item-card > div > img{
+.ILC-product-image{
+    width: 150px;
+    height: 100px;
+    background-position: center;
+    background-size: cover;
     margin-bottom: 10px;
-    
+    transition: 0.5s ease-in;
+}
+
+.ILC-product-image:hover{
+    width: 200px;
+    height: 150px;
 }
 
 .item-card > div > p{

@@ -35,11 +35,15 @@ const ItemDetail = ({ productDetail }) => {
     setReadyToBuy(!readyToBuy);
   };
 
+  const imgStyle = {
+    backgroundImage: "url(" + productDetail.pictureURL + ")",
+  };
+
   return (
     <div className="item-detail">
       <h4>{productDetail.productName}</h4>
       <div>
-        <img alt={productDetail.productName} src={productDetail.pictureURL} />
+        <div style={imgStyle} className="IDC-product-image" />
         <p className="detail-description">{productDetail.description}</p>
         <p className="detail-info">price: ${productDetail.price}</p>
         <p className="detail-info">Avaliable Size: {productDetail.size}</p>

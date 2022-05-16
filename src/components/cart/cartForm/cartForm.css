@@ -19,7 +19,6 @@
   
   .form-fields{
     display:grid;
-    position: center;
     grid-gap: 10px;
     grid-template-columns: repeat(2, 1fr);
     width:100%;
@@ -42,4 +41,11 @@
     padding: 10px;
     margin: 10px;
     font-size: 20px;
+  }
+
+  .submit-button{
+    margin: 10px;
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 50px;
   }

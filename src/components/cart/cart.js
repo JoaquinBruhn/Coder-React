@@ -50,7 +50,7 @@ const Cart = () => {
             {cart.map((el) => {
               return <CardCart product={el} key={el.productID} />;
             })}
-            <h4>Your total price is: ${totalPrice()}</h4>
+            <h2>Your total price is: ${totalPrice()}</h2>
             <button className="cart-button" onClick={clearCart}>
               Clear cart
             </button>
@@ -118,6 +118,9 @@ const Cart = () => {
                 return <li key={prod.productID}>{prod.productName}</li>;
               })}
             </ul>
+            <button className="cart-button">
+              <Link to={"/"}>Back to the shop</Link>
+            </button>
           </div>
         )}
       </div>

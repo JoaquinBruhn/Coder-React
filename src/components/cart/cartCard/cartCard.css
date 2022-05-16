@@ -22,6 +22,20 @@
     margin: 5px 0;
 }
 
+.product-cartIMG{
+    width: 225px;
+    height: 150px;
+    background-position: center;
+    background-size: cover;
+    transition: 0.5s ease-in;
+}
+
+.product-cartIMG:hover{
+    width: 275px;
+    height: 175px;
+    transition: 0.5s ease-in;
+}
+
 .product-cartCard > div:nth-child(2){
     margin: 0px 100px 0 50px;
 }

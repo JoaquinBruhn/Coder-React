@@ -7,6 +7,10 @@ import "./cartCard.css";
 const CardCart = ({ product }) => {
   const { removeItem } = useContext(CartContext);
 
+  const imgStyle = {
+    backgroundImage: "url(" + product.pictureURL + ")",
+  };
+
   return (
     <div className="product-cartCard">
       <div>
@@ -18,7 +22,7 @@ const CardCart = ({ product }) => {
       </div>
       <div>
         <Link to={`/item/${product.productID}`}>
-          <img className="product-cartIMG" alt={product.productName} src={product.pictureURL} />
+          <div style={imgStyle} className="product-cartIMG" />
         </Link>
       </div>
     </div>

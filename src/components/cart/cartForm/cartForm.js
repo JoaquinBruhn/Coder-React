@@ -20,20 +20,20 @@ const CartForm = ({ buyerData, setBuyerData }) => {
       <div className="form-fields">
         <div>
           <h3>Name:</h3>
-          <input type="text" id="name" required />
+          <input type="text" id="name" minLength={6} maxLength={25} required />
         </div>
         <div>
           <h3>Phone number:</h3>
           <div className="phone-numb">
             <span>
               {"("}
-              <input type="tel" maxLength={3} minLength={3} id="phone1" placeholder="###" pattern="[0-9]{3}" required />
+              <input type="tel" id="phone1" minLength={3} maxLength={3} placeholder="###" pattern="[0-9]{3}" required />
               {")"}
               <input
                 type="tel"
-                maxLength={4}
-                minLength={4}
                 id="phone2"
+                minLength={4}
+                maxLength={4}
                 placeholder="####"
                 pattern="[0-9]{4}"
                 required
@@ -41,9 +41,9 @@ const CartForm = ({ buyerData, setBuyerData }) => {
               {"-"}
               <input
                 type="tel"
-                maxLength={4}
-                minLength={4}
                 id="phone3"
+                minLength={4}
+                maxLength={4}
                 placeholder="####"
                 pattern="[0-9]{4}"
                 required
@@ -53,14 +53,18 @@ const CartForm = ({ buyerData, setBuyerData }) => {
         </div>
         <div>
           <h3>Email:</h3>
-          <input type="email" id="email" placeholder="email@gmail.com" required />
+          <input type="email" id="email" minLength={6} maxLength={30} placeholder="email@gmail.com" required />
         </div>
         <div>
           <h3>Home address:</h3>
-          <input type="text" id="address" placeholder="City, address" required />
+          <input type="text" id="address" minLength={6} maxLength={30} placeholder="City, address" required />
         </div>
       </div>
-      {!buyerData ? <button type="submit">Submit</button> : null}
+      {!buyerData ? (
+        <button type="submit" className="submit-button">
+          Submit
+        </button>
+      ) : null}
     </form>
   );
 };
