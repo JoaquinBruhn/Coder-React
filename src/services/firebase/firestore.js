@@ -12,7 +12,11 @@ import {
   Timestamp,
   writeBatch,
 } from "firebase/firestore";
-import { productAdapterFirestore, categoryAdapterFirestore } from "../../adapters/productAdapters";
+import {
+  productAdapterFirestore,
+  categoryAdapterFirestore,
+  buyerDataAdapterFirestore,
+} from "../../adapters/productAdapters";
 
 export const loadCategories = () => {
   return new Promise((resolve, reject) => {
@@ -71,7 +75,7 @@ export const startPurchase = (buyerData, cart, totPrice) => {
 
   const objOrder = {
     items: cart,
-    buyer: buyerData,
+    buyer: buyerDataAdapterFirestore(buyerData),
     total: totPrice,
     date: Timestamp.fromDate(new Date()),
   };
@@ -91,7 +95,7 @@ export const startPurchase = (buyerData, cart, totPrice) => {
           if (dataDoc.stock >= prodQuantity) {
             batch.update(doc.ref, { stock: dataDoc.stock - prodQuantity });
           } else {
-            outOfStock.push(productAdapterFirestore(doc));
+            outOfStock.push(dataDoc);
           }
         });
       })
@@ -107,9 +111,13 @@ export const startPurchase = (buyerData, cart, totPrice) => {
           });
         }
       })
-      .then(({ id }) => {
-        batch.commit();
-        resolve(id);
+      .then((doc) => {
+        if (doc !== undefined) {
+          batch.commit();
+          resolve(doc.id);
+        } else {
+          resolve("Missing stock");
+        }
       });
   });
 };

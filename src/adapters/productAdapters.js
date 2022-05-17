@@ -25,3 +25,13 @@ export const categoryAdapterFirestore = (doc) => {
 
   return adaptedCategory;
 };
+
+export const buyerDataAdapterFirestore = (obj) => {
+  const adaptedBuyerData = {
+    name: obj.name,
+    phone: obj.phone,
+    email: obj.email,
+    address: obj.address,
+  };
+  return adaptedBuyerData;
+};

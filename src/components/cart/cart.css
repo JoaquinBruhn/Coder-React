@@ -49,24 +49,36 @@
 }
 
 .purchase{
-  position: absolute;
-  transform: translate(50%,50%);
+  height: 100vh;
+  width: 100vw;
+  /* position: absolute;
+  transform: translate(50%,50%); */
 }
 
-.purchase-ticket{
-  width: 100%;
+.purchase-ticket {
+  width: 700px;
+  height: 500px;
   padding: 20px;
+  margin: 50px auto;
   background-color: white;
 }
 
-.purchase-ticket > div{
+.purchase-ticket > div {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.purchase-error{
-  width: 100%;
-  padding: 20px;
+.purchase-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+  margin: 50px auto;
   background-color: white;
+}
+
+.purchase-error > ul {
+  text-align: start;
+  text-transform: capitalize;
 }

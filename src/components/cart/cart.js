@@ -12,12 +12,12 @@ const Cart = () => {
   const { cart, clearCart, totalPrice } = useContext(CartContext);
 
   const [buyerData, setBuyerData] = useState(undefined);
-  const [purchaseState, setpurchaseState] = useState("not made");
+  const [purchaseState, setPurchaseState] = useState("not made");
   const [purchaseReceipt, setPurchaseReceipt] = useState("error");
   const [missingStock, setMissingStock] = useState([]);
 
   const makePurchase = () => {
-    setpurchaseState("processing");
+    setPurchaseState("processing");
 
     const totPrice = totalPrice();
 
@@ -33,7 +33,7 @@ const Cart = () => {
       })
       .finally(() => {
         clearCart();
-        setpurchaseState("done");
+        setPurchaseState("done");
       });
   };
 

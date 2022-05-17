@@ -63,7 +63,7 @@ const ItemDetail = ({ productDetail }) => {
             {readyToBuy ? (
               <>
                 <button className="controller-buttons">
-                  <Link to={"/cart"}>Finsish my purchase</Link>
+                  <Link to={"/cart"}>Finish my purchase</Link>
                 </button>
               </>
             ) : null}
