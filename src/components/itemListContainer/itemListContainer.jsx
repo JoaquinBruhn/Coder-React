@@ -10,6 +10,8 @@ const ItemListContainer = () => {
 
   const { categoryId } = useParams();
 
+  console.log(products);
+
   useEffect(() => {
     setProducts(undefined);
 
