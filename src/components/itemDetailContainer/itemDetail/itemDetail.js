@@ -49,28 +49,35 @@ const ItemDetail = ({ productDetail }) => {
         <p className="detail-info">Avaliable Size: {productDetail.size}</p>
         <p className="detail-info">remaining in stock: {productDetail.stock}</p>
       </div>
-      <div>
-        {readyToBuy ? (
-          <h3>You have selected {count}.</h3>
-        ) : (
-          <ItemCount onAdd={onAdd} onSubtract={onSubtract} count={count} stock={productDetail.stock} />
-        )}
-        <button className="controller-buttons" onClick={lockAmount}>
-          {readyToBuy ? "change amount" : "select amount"}
-        </button>
+      {productDetail.stock > 0 ? (
         <div>
           {readyToBuy ? (
-            <>
-              <button className="controller-buttons">
-                <Link to={"/cart"}>Finsish my purchase</Link>
-              </button>
-            </>
-          ) : null}
-          <button className="controller-buttons">
-            <Link to={"/"}>Back to the shop</Link>
+            <h3>You have selected {count}.</h3>
+          ) : (
+            <ItemCount onAdd={onAdd} onSubtract={onSubtract} count={count} stock={productDetail.stock} />
+          )}
+          <button className="controller-buttons" onClick={lockAmount}>
+            {readyToBuy ? "change amount" : "select amount"}
           </button>
+          <div>
+            {readyToBuy ? (
+              <>
+                <button className="controller-buttons">
+                  <Link to={"/cart"}>Finsish my purchase</Link>
+                </button>
+              </>
+            ) : null}
+            <button className="controller-buttons">
+              <Link to={"/"}>Back to the shop</Link>
+            </button>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div>
+          <h3>Out of stock</h3>
+          <h3>Please try again later</h3>
+        </div>
+      )}
     </div>
   );
 };
