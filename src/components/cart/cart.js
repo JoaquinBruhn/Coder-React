@@ -23,11 +23,9 @@ const Cart = () => {
 
     startPurchase(buyerData, cart, totPrice)
       .then((id) => {
-        console.log(id);
         setPurchaseReceipt(id);
       })
       .catch((error) => {
-        console.log(error);
         setMissingStock(error.OOSproducts);
         setPurchaseReceipt("Missing stock");
       })

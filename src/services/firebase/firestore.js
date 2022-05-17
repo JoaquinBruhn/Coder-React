@@ -102,7 +102,6 @@ export const startPurchase = (buyerData, cart, totPrice) => {
       .then(() => {
         if (outOfStock.length === 0) {
           const ordersRef = collection(firestoreDb, "orders");
-          console.log(objOrder);
           return addDoc(ordersRef, objOrder);
         } else {
           reject({
