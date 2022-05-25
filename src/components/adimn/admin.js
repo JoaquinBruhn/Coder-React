@@ -4,7 +4,7 @@ import { useState } from "react";
 import "./admin.css";
 
 const Admin = () => {
-  const [updateStock, setUpdateStock] = useState();
+  const [stockUpdate, setStockUpdate] = useState();
 
   // const data = [
   //   {
@@ -72,16 +72,16 @@ const Admin = () => {
   //   },
   // ];
 
-  const resetStock = (e) => {
+  const refillStock = (e) => {
     let newStock = e.target.value;
     if (newStock < 0) {
       newStock = 0;
-      setUpdateStock(newStock);
+      setStockUpdate(newStock);
     } else if (newStock > 99) {
       newStock = 99;
-      setUpdateStock(newStock);
+      setStockUpdate(newStock);
     } else {
-      setUpdateStock(newStock);
+      setStockUpdate(newStock);
     }
   };
 
@@ -89,13 +89,13 @@ const Admin = () => {
   //     const docRef = collection(firestoreDb, "products");
 
   //     const fieldToUpdate = {
-  //       stock: updateStock,
+  //       stock: stockUpdate,
   //     };
 
   //   };
 
   const checkInput = () => {
-    console.log(updateStock);
+    console.log(stockUpdate);
   };
 
   return (
@@ -103,7 +103,7 @@ const Admin = () => {
       <h2>Administrator options</h2>
       <div>
         <h4>Set all stock to :</h4>
-        <input onChange={resetStock} min={1} max={99} type="number" />
+        <input onChange={refillStock} min={1} max={99} type="number" />
         <button onClick={checkInput}>Reset Stock</button>
       </div>
     </div>

@@ -26,12 +26,19 @@ const Navbar = () => {
         {categories.length > 0
           ? categories.map((el) => {
               return (
-                <NavLink to={"/category/" + el.catId} className="nav-link" key={el.catId}>
+                <NavLink
+                  to={"/category/" + el.catId}
+                  className="nav-link"
+                  key={el.catId}
+                >
                   {el.categoryName}
                 </NavLink>
               );
             })
           : null}
+        <NavLink to={"/admin"} className="nav-link">
+          admin
+        </NavLink>
         <CartWidget />
       </div>
     </div>
