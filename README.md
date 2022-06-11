@@ -174,18 +174,12 @@ startPurchase shall be explained below on a more step by step process
 
 # Future updates to consider
 
-- Creating a log in system that saves the user´s information for a more streamline experience.
-- Adding a hidden admin route to refill the stock more easily, posibly only allow access though and admin account.
+- Create a log in system that saves the user´s information for a more streamline experience.
+- Add a hidden admin route to refill the stock more easily, posibly only allow access though and admin account.
 - Add a more advance filter box to filter producs by other parameters aside from category and allow multiple at the same time.
-- Adding a way to load a new or multiple new producs to the DB.
+- Add a way to load a new or multiple new producs to the DB.
+- Add a function to auto fill an empty DB with a basic product list so the app can be tested by anyone
 
 ## Closing notes
 
 This app is being developed by Joaquin Bruhn, to see more please visit my [Github](https://github.com/JoaquinBruhn).
-The API keys for the .env file are:
-REACT_APP_apiKey=AIzaSyDheaF8Q1nRJPNWj-eTEhnJ2e94hu5Aue4
-REACT_APP_authDomain=e-comerce-coder.firebaseapp.com
-REACT_APP_projectId=e-comerce-coder
-REACT_APP_storageBucket=e-comerce-coder.appspot.com
-REACT_APP_messagingSenderId=1033581361905
-REACT_APP_appId=1:1033581361905:web:74c54b16936556d4b20750

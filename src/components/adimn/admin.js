@@ -1,10 +1,12 @@
-// import { firestoreDb } from "../../services/firebase";
-// import { collection, updateDoc } from "firebase/firestore";
+import { firestoreDb } from "../../services/firebase";
+import { collection, getDocs, writeBatch } from "firebase/firestore";
 import { useState } from "react";
+import Spinner from "../../tools/spinner/spinner";
 import "./admin.css";
 
 const Admin = () => {
-  const [stockUpdate, setStockUpdate] = useState();
+  const [stockUpdate, setStockUpdate] = useState(1);
+  const [updating, setUpdating] = useState(false);
 
   // const data = [
   //   {
@@ -73,9 +75,9 @@ const Admin = () => {
   // ];
 
   const refillStock = (e) => {
-    let newStock = e.target.value;
-    if (newStock < 0) {
-      newStock = 0;
+    let newStock = parseInt(e.target.value);
+    if (newStock < 1) {
+      newStock = 1;
       setStockUpdate(newStock);
     } else if (newStock > 99) {
       newStock = 99;
@@ -85,27 +87,39 @@ const Admin = () => {
     }
   };
 
-  //   const rechargeStock = () => {
-  //     const docRef = collection(firestoreDb, "products");
+  const rechargeStock = (stockUpdate) => {
+    const colRef = collection(firestoreDb, "products");
+    const batch = writeBatch(firestoreDb);
 
-  //     const fieldToUpdate = {
-  //       stock: stockUpdate,
-  //     };
-
-  //   };
+    getDocs(colRef)
+      .then((response) => {
+        response.docs.forEach((doc) => {
+          batch.update(doc.ref, { stock: stockUpdate });
+        });
+      })
+      .then(() => {
+        batch.commit();
+        setUpdating(false);
+      });
+  };
 
   const checkInput = () => {
-    console.log(stockUpdate);
+    setUpdating(true);
+    rechargeStock(stockUpdate);
   };
 
   return (
     <div className="admin-container">
       <h2>Administrator options</h2>
-      <div>
-        <h4>Set all stock to :</h4>
-        <input onChange={refillStock} min={1} max={99} type="number" />
-        <button onClick={checkInput}>Reset Stock</button>
-      </div>
+      {updating ? (
+        <Spinner />
+      ) : (
+        <div>
+          <h4>Set all stock to :</h4>
+          <input onChange={refillStock} defaultValue={1} min={1} max={99} type="number" />
+          <button onClick={checkInput}>Reset Stock</button>
+        </div>
+      )}
     </div>
   );
 };
