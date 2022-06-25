@@ -1,5 +1,4 @@
-import { firestoreDb } from "../../services/firebase";
-import { collection, getDocs, writeBatch } from "firebase/firestore";
+import { rechargeStock } from "../../services/firebase/firestore";
 import { useState } from "react";
 import Spinner from "../../tools/spinner/spinner";
 import "./admin.css";
@@ -74,7 +73,7 @@ const Admin = () => {
   //   },
   // ];
 
-  const refillStock = (e) => {
+  const refillAmount = (e) => {
     let newStock = parseInt(e.target.value);
     if (newStock < 1) {
       newStock = 1;
@@ -87,25 +86,13 @@ const Admin = () => {
     }
   };
 
-  const rechargeStock = (stockUpdate) => {
-    const colRef = collection(firestoreDb, "products");
-    const batch = writeBatch(firestoreDb);
-
-    getDocs(colRef)
-      .then((response) => {
-        response.docs.forEach((doc) => {
-          batch.update(doc.ref, { stock: stockUpdate });
-        });
-      })
-      .then(() => {
-        batch.commit();
-        setUpdating(false);
-      });
-  };
-
-  const checkInput = () => {
+  const refill = () => {
     setUpdating(true);
-    rechargeStock(stockUpdate);
+    rechargeStock(stockUpdate).then((res) => {
+      if (res === "success") {
+        setUpdating(false);
+      }
+    });
   };
 
   return (
@@ -116,8 +103,8 @@ const Admin = () => {
       ) : (
         <div>
           <h4>Set all stock to :</h4>
-          <input onChange={refillStock} defaultValue={1} min={1} max={99} type="number" />
-          <button onClick={checkInput}>Reset Stock</button>
+          <input onChange={refillAmount} defaultValue={1} min={1} max={99} type="number" />
+          <button onClick={refill}>Reset Stock</button>
         </div>
       )}
     </div>

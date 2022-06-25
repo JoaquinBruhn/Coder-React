@@ -120,3 +120,21 @@ export const startPurchase = (buyerData, cart, totPrice) => {
       });
   });
 };
+
+export const rechargeStock = (stockUpdate) => {
+  return new Promise((resolve, reject) => {
+    const colRef = collection(firestoreDb, "products");
+    const batch = writeBatch(firestoreDb);
+
+    getDocs(colRef)
+      .then((response) => {
+        response.docs.forEach((doc) => {
+          batch.update(doc.ref, { stock: stockUpdate });
+        });
+      })
+      .then(() => {
+        batch.commit();
+        resolve("success");
+      });
+  });
+};
